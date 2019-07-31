@@ -1,26 +1,31 @@
 var lettersGuessed = [];
-var guessesLeft = 10;
+var guessesLeft;
+var computerGuess;
 var wins = 0;
 
-//use Math.random method along with String.fromCharCode method to generate a random letter
-var computerGuess =
-    String.fromCharCode(
-        Math.round(Math.random() * 26) + 97
-    );
+var message = document.getElementById("userMessage");
 
-console.log(computerGuess);
+//use Math.random method along with String.fromCharCode method to generate a random letter
+function GetRandomChar(){
+    computerGuess = String.fromCharCode(
+        Math.floor(Math.random() * 26) + 97
+    );
+    console.log("Computer Guess: " + computerGuess);
+}
+
 //function to capture user's keyboard input and make the input lowercase
 document.onkeydown = function(event) {
     var keyPress = (String.fromCharCode(event.keyCode)).toLowerCase();
 
+    console.log("You guessed: " + keyPress);
     //document.getElementById('guess').innerHTML = keyPress;
-    addLetter(keyPress);
+    validateLetter(keyPress);
 
 }
 
 //function to catch repeat letters and/or add players guess to lettersGuessed string
-function addLetter (usersKeypress) {
-
+function validateLetter (usersKeypress) {
+    message.innerText = "";
 
     var repeatGuess = lettersGuessed.some(function(item){
         return item === usersKeypress;
@@ -28,12 +33,13 @@ function addLetter (usersKeypress) {
 
     //alert player if the above code is true.
     if (repeatGuess) {
-        alert(usersKeypress + " already guessed. Try again!");
+        //alert(usersKeypress + " already guessed. Try again!");
+        message.innerHTML = "<span class='duplicateMessage'>already guessed. Try again!</span>";
 
         //if it is not a repeat guess, check if it's in word
     } else {
         lettersGuessed.push(usersKeypress);
-        console.log(lettersGuessed);
+        console.log("Guessed so far", lettersGuessed);
 
         //show user's input in browser
         showLettersGuessed();
@@ -43,37 +49,27 @@ function addLetter (usersKeypress) {
 
 }
 
-//function to show letters guessed in browser
-function showLettersGuessed() {
-    var tempStr = lettersGuessed.join(", ");
-    document.getElementById("playersGuess").innerHTML = tempStr;
-}
+
 
 function guessMatch (character) {
-
-    console.log(character);
-    console.log(computerGuess);
+    guessesLeft--;
 
     if (character === computerGuess) {
-
-        alert("You win!");
-        wins = wins + 1;
-        showWins();
+        
+        message.innerHTML = "<span class='winMessage'>You might be psychic</span>"
+        wins++;
+        startGame();
+        // alert("You might be a Psychic!");
         //toggleGame();
-
+        
     } else if (guessesLeft === 0) {
-        alert("Aw man! Lets start over.");
-        resetVariables ();
-
+        message.innerHTML = "<span class='loseMessage'>Your not Psychic after all! Lets start over.</span>"
+        // alert("Your not Psychic after all! Lets start over.");
+        startGame ();
+        
     } else {
-        guessesLeft = guessesLeft - 1;
         showGuessesRemaining();
     }
-}
-
-//function to show wins
-function showWins() {
-    document.getElementById("numWins").innerHTML = wins;
 }
 
 //function to show guesses remaining
@@ -81,17 +77,25 @@ function showGuessesRemaining() {
     document.getElementById("numGuesses").innerHTML = guessesLeft;
 }
 
+//function to show letters guessed in browser
+function showLettersGuessed() {
+    document.getElementById("playersGuess").innerHTML = lettersGuessed.join(", ");
+}
 
-function resetVariables () {
+
+function startGame () {
+
     lettersGuessed = [];
+    showLettersGuessed();
+
     guessesLeft = 10;
-}
-
-function startGame() {
     showGuessesRemaining();
-    showWins();
+
+    document.getElementById("numWins").innerHTML = wins;
+    GetRandomChar();
 }
 
+startGame();
 
 
 startGame();

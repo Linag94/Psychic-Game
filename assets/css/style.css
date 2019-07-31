@@ -1,0 +1,20 @@
+.winMessage {
+    margin: 0 auto;
+    padding: 15px;
+    font-weight: 800;
+    color: green;
+}
+
+.duplicateMessage {
+    margin: 0 auto;
+    padding: 15px;
+    font-weight: 800;
+    color: yellow;
+}
+
+.loseMessage {
+    margin: 0 auto;
+    padding: 15px;
+    font-weight: 800;
+    color: red;
+}
