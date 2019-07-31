@@ -9,7 +9,7 @@
     margin: 0 auto;
     padding: 15px;
     font-weight: 800;
-    color: yellow;
+    color: rgb(243, 163, 14);
 }
 
 .loseMessage {
@@ -18,3 +18,4 @@
     font-weight: 800;
     color: red;
 }
+

@@ -34,7 +34,7 @@ function validateLetter (usersKeypress) {
     //alert player if the above code is true.
     if (repeatGuess) {
         //alert(usersKeypress + " already guessed. Try again!");
-        message.innerHTML = "<span class='duplicateMessage'>already guessed. Try again!</span>";
+        message.innerHTML = "<span class='duplicateMessage'>Already guessed that. Try again!</span>";
 
         //if it is not a repeat guess, check if it's in word
     } else {
